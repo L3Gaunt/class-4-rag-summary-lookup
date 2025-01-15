@@ -1,0 +1,45 @@
+services:
+  upload_summaries:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_SUMMARY_INDEX=${PINECONE_SUMMARY_INDEX}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT}
+    volumes:
+      - .:/app
+    command: python upload_summaries.py
+
+  upload_chunks:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_CHUNK_INDEX=${PINECONE_CHUNK_INDEX}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT}
+
+    volumes:
+      - .:/app
+    command: python upload_chunks.py
+
+  summary_lookup:
+    build: .
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_SUMMARY_INDEX=${PINECONE_SUMMARY_INDEX}
+      - PINECONE_CHUNK_INDEX=${PINECONE_CHUNK_INDEX}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT}
+    volumes:
+      - .:/app
+    command: python main.py
