@@ -1,4 +1,4 @@
-# Office Hours 2: Summary Lookup RAG
+# Summary Lookup RAG
 
 ## Introduction
 In this project, we use summary lookup RAG to help narrow the focus of the retrieval from the vector database by first running a query on document summaries, and then querying relevant chunks of data from the selected documents.
@@ -37,8 +37,8 @@ Remember the names you gave to your indices, as you'll need them for the `.env` 
   ```
    OPENAI_API_KEY=<your-openai-key>
    LANGCHAIN_API_KEY=<your-langsmith-key>
-   LANGCHAIN_TRACING_V2=<true or false>
-   LANGCHAIN_PROJECT=office_hours_2
+   LANGCHAIN_TRACING_V2=true
+   LANGCHAIN_PROJECT=gauntlet_class_4
    PINECONE_API_KEY=<your-pinecone-key>
    PINECONE_SUMMARY_INDEX=<your-summary-index-name>
    PINECONE_CHUNK_INDEX=<your-chunk-index-name>
